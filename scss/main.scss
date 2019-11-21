@@ -1,7 +1,217 @@
+$primary-color: #a8e80c;
+$menu-color-primary: white;
+$menu-color-ecommerce: #e89f0c;
+
+@font-face {
+  font-family: Pristina;
+  src: local("Pristina Regular"), url(../fonts/pristina.ttf) format("truetype");
+}
+
+@mixin ecommerce {
+  background-color: $menu-color-ecommerce;
+  color: white;
+
+  &:hover {
+    background-color: darken($menu-color-ecommerce, 10);
+  }
+}
+
 * {
   box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
 }
 
 body {
-  margin: 0px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+}
+
+/* ======================================================================================================== */
+
+nav.navbar {
+  background-color: $primary-color;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+
+    .navbar-brand,
+    .navbar-menu {
+      margin: 1rem;
+    }
+
+    .navbar-menu {
+      position: relative;
+      align-self: flex-end;
+
+      a {
+        text-decoration: none;
+        text-align: center;
+        color: black;
+      }
+
+      li {
+        display: inline-block;
+        width: 8rem;
+        list-style: none;
+        background-color: $menu-color-primary;
+        margin-left: 0.5rem;
+        padding: 0.5rem 0px;
+        border-radius: 5px;
+
+        &:hover {
+          background-color: darken($menu-color-primary, 10);
+        }
+
+        &.menu-store,
+        &.menu-cart {
+          @include ecommerce();
+        }
+
+        &.menu-cart {
+          position: absolute;
+          top: -2.7rem;
+          left: 75.8%;
+        }
+
+        &.visited {
+          background-color: darken($menu-color-primary, 20);
+        }
+      }
+    }
+  }
+}
+
+/* ======================================================================================================== */
+
+main {
+  .breadcrumb {
+    margin: 0.5rem 2rem;
+  }
+
+  /* ======================================================================================================== */
+
+  .hero {
+    background-image: url(../images/shine-up.png);
+    background-color: black;
+    background-size: auto 100%;
+    background-position: right;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 500px;
+    color: white;
+
+    .hero-headline {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      height: 100%;
+
+      .headline-header {
+        font-size: 2.3rem;
+        line-height: 2.5rem;
+
+        span:first-child {
+          font-family: Pristina, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+          color: $menu-color-ecommerce;
+          font-size: 6rem;
+        }
+
+        span:last-child {
+          position: relative;
+          left: 18px;
+        }
+      }
+
+      .hero-action {
+        display: inline-block;
+        position: relative;
+        left: -3.5rem;
+        width: 130px;
+        margin-top: 2rem;
+        padding: 0.5rem 0px;
+        border-radius: 5px;
+
+        font-size: 1.3rem;
+        text-decoration: none;
+        text-align: center;
+
+        @include ecommerce();
+      }
+    }
+  }
+
+  /* ======================================================================================================== */
+
+  .bio {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: $primary-color;
+    width: 70%;
+    margin: 3rem auto;
+    padding: 1.3rem 2.3rem;
+    border-radius: 5px;
+
+    .bio-description {
+      width: 45%;
+
+      header {
+        text-align: center;
+        font-size: 0.8rem;
+      }
+    }
+
+    .separator {
+      margin: 0.6rem;
+      text-align: center;
+    }
+  }
+
+  /* ======================================================================================================== */
+
+  .action {
+    background-color: #444;
+    color: white;
+    width: 40%;
+    margin: 0px auto;
+    padding: 2rem 2rem;
+    text-align: center;
+    border-radius: 5px;
+    z-index: 1;
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 500;
+    }
+
+    .action-link {
+      display: inline-block;
+      width: 40%;
+      margin: 1.5rem auto 0px auto;
+      padding: 0.5rem 0px;
+      border-radius: 5px;
+
+      text-decoration: none;
+      font-size: 1.3rem;
+
+      @include ecommerce();
+    }
+  }
+}
+
+/* ======================================================================================================== */
+
+footer.footer-picture {
+  background-image: url(../images/footer.png);
+  background-size: cover;
+  width: 100%;
+  height: 500px;
 }
