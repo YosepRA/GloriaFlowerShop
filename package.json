@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/YosepRA/GloriaFlowerShop/issues"
   },
-  "homepage": "https://github.com/YosepRA/GloriaFlowerShop#readme",
+  "homepage": "https://yosepra.github.io/GloriaFlowerShop",
   "devDependencies": {
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-prettier": "^3.1.1"

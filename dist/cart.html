@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="A place to find a perfect flower for you." />
+
+    <link rel="stylesheet" href="css/main.min.css" />
+
+    <title>Gloria Flower Shop</title>
+  </head>
+  <body id="cart">
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <!-- Logo -->
+          <a href="index.html"><img src="images/gloria-logo.png" alt="Gloria Flower Shop Logo"/></a>
+        </div>
+
+        <div class="navbar-menu">
+          <ul>
+            <a href="index.html" class="menu-link">
+              <li class="menu-item">Home</li>
+            </a>
+            <a href="blog.html" class="menu-link">
+              <li class="menu-item">Blog</li>
+            </a>
+            <a href="store.html" class="menu-link">
+              <li class="menu-item menu-store">Store</li>
+            </a>
+            <a href="contact.html" class="menu-link">
+              <li class="menu-item">Contact</li>
+            </a>
+            <a href="cart.html" class="menu-link">
+              <li class="menu-item menu-cart visited-ecommerce">Cart</li>
+            </a>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="breadcrumb">
+        / <a href="index.html" class="breadcrumb-link">Home</a> /
+        <a href="cart.html" class="breadcrumb-link">Cart</a>
+      </div>
+    </div>
+
+    <main>
+      <div class="container">
+        <section class="cart-details">
+          <header>
+            <h1>Cart details:</h1>
+          </header>
+
+          <section class="cart-items">
+            <header class="row-title">
+              <div class="product-checkbox">
+                <input type="checkbox" name="products" />
+              </div>
+              <div>Product image</div>
+              <div>Product name</div>
+              <div>Price</div>
+              <div>QTY</div>
+              <div>Total</div>
+              <div>Delete</div>
+            </header>
+
+            <div class="cart-product">
+              <div class="product-checkbox">
+                <input type="checkbox" name="products" />
+              </div>
+              <div class="product-image">
+                <img src="images/product-elegantredrose.jpg" alt="Elegant Red Rose" />
+              </div>
+              <div class="product-name">
+                Elegant Red Rose
+              </div>
+              <div class="product-price">$60</div>
+              <div class="product-qty">
+                <input type="text" name="qty" id="qty" />
+              </div>
+              <div class="product-total">$120</div>
+              <div class="product-delete">
+                <button>Delete</button>
+              </div>
+            </div>
+          </section>
+
+          <footer class="cart-action">
+            <button class="action-checkout">Checkout</button>
+            <button class="action-deleteall">Delete all</button>
+          </footer>
+        </section>
+
+        <section class="grand-total">
+          <header>
+            <h2>Grand Total</h2>
+          </header>
+
+          <hr />
+
+          <div class="product-list">
+            <div class="list-item">
+              <div class="item-name">Elegant Red Rose</div>
+              <div class="item-price">$120</div>
+            </div>
+
+            <div class="list-item">
+              <div class="item-name">Shipping cost</div>
+              <div class="item-price">$10</div>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="total-price">Total: $130</div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer-picture"></footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
