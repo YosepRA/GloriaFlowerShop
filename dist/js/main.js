@@ -1,16 +1,10 @@
-window.addEventListener('DOMContentLoaded', () => {
-  fetch('data/product.json')
-    .then(response => response.json())
-    .then(data => {
-      console.log('Data received!');
-      for (const { name, price } of data) console.log(`Name: ${name} and the price is ${price}`);
-    });
-});
+function elt(type, props, ...children) {
+  let dom = document.createElement(type);
+  if (props) Object.assign(dom, props);
 
-function dom(element, attributes, parent) {
-  let el = document.createElement(element);
-  for (const attr of Object.keys(attributes)) {
-    el.setAttribute(attr, attributes[attr]);
+  for (const child of children) {
+    if (typeof child !== 'string') dom.appendChild(child);
+    else dom.appendChild(document.createTextNode(child));
   }
-  parent.appendChild(el);
+  return dom;
 }

@@ -4,7 +4,7 @@ $menu-color-ecommerce: #e89f0c;
 
 @font-face {
   font-family: Pristina;
-  src: local("Pristina Regular"), url(../fonts/pristina.ttf) format("truetype");
+  src: local('Pristina Regular'), url(../fonts/pristina.ttf) format('truetype');
 }
 
 @mixin ecommerce {
@@ -37,7 +37,7 @@ $menu-color-ecommerce: #e89f0c;
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .container {
@@ -138,7 +138,7 @@ body#home {
           line-height: 2.5rem;
 
           span:first-child {
-            font-family: Pristina, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Pristina, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: $menu-color-ecommerce;
             font-size: 6rem;
           }
@@ -427,9 +427,12 @@ body#store {
       justify-content: space-between;
 
       .product {
+        position: relative;
         width: 30%;
         background-color: #ddd;
         margin-bottom: 3rem;
+        border-radius: 10px;
+        border: 1px solid rgba(#aaa, 0.5);
 
         .product-name,
         .product-image,
@@ -444,11 +447,22 @@ body#store {
         }
 
         .product-image {
+          background: white;
           img {
             display: block;
             margin: auto;
             width: 50%;
           }
+        }
+
+        .product-price {
+          position: absolute;
+          top: 60%;
+          right: 1.5rem;
+          color: $menu-color-ecommerce;
+          font-size: 2.3rem;
+          text-align: right;
+          letter-spacing: 0.1rem;
         }
 
         .product-action {
@@ -549,6 +563,7 @@ body#cart {
 
         .cart-action {
           text-align: right;
+
           button {
             border: none;
             color: white;
@@ -559,6 +574,7 @@ body#cart {
           button.action-checkout {
             padding: 1rem 1.5rem;
             font-size: 1.5rem;
+            margin-right: 10px;
             @include ecommerce();
           }
 
