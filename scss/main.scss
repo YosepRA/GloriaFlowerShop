@@ -447,22 +447,29 @@ body#store {
         }
 
         .product-image {
+          position: relative;
           background: white;
-          img {
-            display: block;
-            margin: auto;
-            width: 50%;
-          }
-        }
 
-        .product-price {
-          position: absolute;
-          top: 60%;
-          right: 1.5rem;
-          color: $menu-color-ecommerce;
-          font-size: 2.3rem;
-          text-align: right;
-          letter-spacing: 0.1rem;
+          .image {
+            height: 200px;
+
+            img {
+              display: block;
+              margin: auto;
+              height: 100%;
+            }
+          }
+
+          .price {
+            position: absolute;
+            top: 70%;
+            right: 1.5rem;
+            color: $menu-color-ecommerce;
+            font-size: 2.3rem;
+            font-weight: 500;
+            text-align: right;
+            letter-spacing: 0.1rem;
+          }
         }
 
         .product-action {
@@ -487,6 +494,12 @@ body#store {
               border-radius: 5px;
               border: 1px solid black;
               @include ecommerce();
+
+              &:disabled {
+                background: #eee;
+                color: darken(#eee, 20);
+                cursor: not-allowed;
+              }
             }
           }
 

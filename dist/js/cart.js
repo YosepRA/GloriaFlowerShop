@@ -1,82 +1,97 @@
-let cart = [
-  {
-    name: 'Elegant Red Rose',
-    image: 'product-elegantredrose.jpg',
-    description:
-      'Nam magna dolor, volutpat nec lorem ut, tempor lacinia risus. Vestibulum rutrum felis id lacus finibus consequat. Duis consequat sapien vel ipsum scelerisque, eget pellentesque enim facilisis. Vivamus lacinia neque libero, vitae condimentum dolor commodo eget. Vestibulum ullamcorper dolor nec lobortis pellentesque. Fusce nec aliquet lorem, eu ullamcorper nulla. Curabitur in turpis posuere, molestie justo ut, sodales lectus.',
-    price: 60
-  },
-  {
-    name: 'Elegant Red Rose',
-    image: 'product-elegantredrose.jpg',
-    description:
-      'Nam magna dolor, volutpat nec lorem ut, tempor lacinia risus. Vestibulum rutrum felis id lacus finibus consequat. Duis consequat sapien vel ipsum scelerisque, eget pellentesque enim facilisis. Vivamus lacinia neque libero, vitae condimentum dolor commodo eget. Vestibulum ullamcorper dolor nec lobortis pellentesque. Fusce nec aliquet lorem, eu ullamcorper nulla. Curabitur in turpis posuere, molestie justo ut, sodales lectus.',
-    price: 60
-  }
-];
+let cart = loadStorage('cart') || [];
 let cartItems = document.querySelector('.cart-items');
 
+// Initialization.
+generateCart();
+// Initiate with all products included in checkout.
+document.querySelector('.row-title .product-checkbox input').checked = true;
+checkAll();
+
+function generateCart() {
+  // Generate row title.
+  generateRowTitle();
+  // Generate cart products.
+  generateCartProducts();
+  // Generate cart action buttons..
+  generateCartAction();
+}
+
 // Create row title.
-let rowTitle = elt(
-  'header',
-  { className: 'row-title' },
-  elt(
-    'div',
-    { className: 'product-checkbox' },
-    elt('input', { type: 'checkbox', name: 'products', onchange: checkAll })
-  ),
-  elt('div', null, 'Product image'),
-  elt('div', null, 'Product name'),
-  elt('div', null, 'Price'),
-  elt('div', null, 'Qty'),
-  elt('div', null, 'Total'),
-  elt('div', null, 'Delete')
-);
-
-cartItems.appendChild(rowTitle);
-
-// Create cart products.
-for (const { name, image, price } of cart) {
-  let productRow = elt(
-    'div',
-    { className: 'cart-product' },
+function generateRowTitle() {
+  let rowTitle = elt(
+    'header',
+    { className: 'row-title' },
     elt(
       'div',
       { className: 'product-checkbox' },
-      elt('input', { type: 'checkbox', name: 'products', onchange: productCheck })
-    ),
-    elt('div', { className: 'product-image' }, elt('img', { src: `images/${image}`, alt: name })),
-    elt('div', { className: 'product-name' }, name),
-    elt('div', { className: 'product-price' }, `$${price}`),
-    elt(
-      'div',
-      { className: 'product-qty' },
       elt('input', {
-        type: 'number',
-        name: 'qty',
-        id: 'qty',
-        min: 1,
-        value: '1',
-        onchange: event => quantityChange(event, price)
+        type: 'checkbox',
+        name: 'products',
+        onchange: checkAll
       })
     ),
-    elt('div', { className: 'product-total' }, `$${price}`),
-    elt('div', { className: 'product-delete' }, elt('button', { onclick: deleteItem }, 'Delete'))
+    elt('div', null, 'Product image'),
+    elt('div', null, 'Product name'),
+    elt('div', null, 'Price'),
+    elt('div', null, 'Qty'),
+    elt('div', null, 'Total'),
+    elt('div', null, 'Delete')
   );
 
-  cartItems.appendChild(productRow);
+  cartItems.appendChild(rowTitle);
 }
 
-let cartAction = elt(
-  'footer',
-  { className: 'cart-action' },
-  elt('button', { className: 'action-checkout' }, 'Checkout'),
-  elt('button', { className: 'action-deleteall', onclick: deleteAll }, 'Delete all')
-);
-cartItems.appendChild(cartAction);
+// Create cart products.
+function generateCartProducts() {
+  for (const { name, image, price } of cart) {
+    let productRow = elt(
+      'div',
+      { className: 'cart-product' },
+      elt(
+        'div',
+        { className: 'product-checkbox' },
+        elt('input', {
+          type: 'checkbox',
+          name: 'products',
+          onchange: productCheck
+        })
+      ),
+      elt('div', { className: 'product-image' }, elt('img', { src: `images/${image}`, alt: name })),
+      elt('div', { className: 'product-name' }, name),
+      elt('div', { className: 'product-price' }, `$${price}`),
+      elt(
+        'div',
+        { className: 'product-qty' },
+        elt('input', {
+          type: 'number',
+          name: 'qty',
+          id: 'qty',
+          min: 1,
+          value: '1',
+          onchange: event => quantityChange(event, price)
+        })
+      ),
+      elt('div', { className: 'product-total' }, `$${price}`),
+      elt('div', { className: 'product-delete' }, elt('button', { onclick: deleteItem }, 'Delete'))
+    );
+
+    cartItems.appendChild(productRow);
+  }
+}
+
+// Generate cart action buttons.
+function generateCartAction() {
+  let cartAction = elt(
+    'footer',
+    { className: 'cart-action' },
+    elt('button', { className: 'action-checkout' }, 'Checkout'),
+    elt('button', { className: 'action-deleteall', onclick: deleteAll }, 'Delete all')
+  );
+  cartItems.appendChild(cartAction);
+}
 
 function checkAll(event) {
-  let checkbox = event.target;
+  let checkbox = document.querySelector('.row-title .product-checkbox input');
   let allCheckbox = document.querySelectorAll('.cart-product .product-checkbox input');
   for (const box of allCheckbox) {
     box.checked = checkbox.checked;
@@ -107,16 +122,25 @@ function quantityChange(event, price) {
 }
 
 function deleteItem(event) {
-  event.target.closest('.cart-product').remove();
+  let product = event.target.closest('.cart-product');
+  let productName = product.querySelector('.product-name').textContent;
+  // Remove from view.
+  product.remove();
+  // Remove from storage.
+  cart = cart.filter(p => p.name !== productName);
+  saveStorage('cart', cart);
 
   syncGrandTotal();
 }
 
 function deleteAll(event) {
   let products = document.querySelectorAll('.cart-product');
+  // Remove from view.
   for (const product of products) {
     product.remove();
   }
+  // Remove all from storage.
+  removeStorage('cart');
 
   syncGrandTotal();
 }

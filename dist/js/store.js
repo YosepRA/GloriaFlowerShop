@@ -1,70 +1,71 @@
-let products;
-let cart = [];
+let products = [];
+let productsData;
 let container = document.querySelector('body#store main .container');
-let data = [
-  {
-    name: 'Elegant Red Rose',
-    image: 'product-elegantredrose.jpg',
-    description:
-      'Nam magna dolor, volutpat nec lorem ut, tempor lacinia risus. Vestibulum rutrum felis id lacus finibus consequat. Duis consequat sapien vel ipsum scelerisque, eget pellentesque enim facilisis. Vivamus lacinia neque libero, vitae condimentum dolor commodo eget. Vestibulum ullamcorper dolor nec lobortis pellentesque. Fusce nec aliquet lorem, eu ullamcorper nulla. Curabitur in turpis posuere, molestie justo ut, sodales lectus.',
-    price: 60
-  },
-  {
-    name: 'Elegant Red Rose',
-    image: 'product-elegantredrose.jpg',
-    description:
-      'Nam magna dolor, volutpat nec lorem ut, tempor lacinia risus. Vestibulum rutrum felis id lacus finibus consequat. Duis consequat sapien vel ipsum scelerisque, eget pellentesque enim facilisis. Vivamus lacinia neque libero, vitae condimentum dolor commodo eget. Vestibulum ullamcorper dolor nec lobortis pellentesque. Fusce nec aliquet lorem, eu ullamcorper nulla. Curabitur in turpis posuere, molestie justo ut, sodales lectus.',
-    price: 60
-  },
-  {
-    name: 'Elegant Red Rose',
-    image: 'product-elegantredrose.jpg',
-    description:
-      'Nam magna dolor, volutpat nec lorem ut, tempor lacinia risus. Vestibulum rutrum felis id lacus finibus consequat. Duis consequat sapien vel ipsum scelerisque, eget pellentesque enim facilisis. Vivamus lacinia neque libero, vitae condimentum dolor commodo eget. Vestibulum ullamcorper dolor nec lobortis pellentesque. Fusce nec aliquet lorem, eu ullamcorper nulla. Curabitur in turpis posuere, molestie justo ut, sodales lectus.',
-    price: 60
-  }
-];
 
-// Create a product card based on data above and add it into the website.
-for (const { name, image, price } of data) {
-  let card = elt(
-    'article',
-    { className: 'product' },
-    elt('header', { className: 'product-name' }, elt('h2', null, name)),
-    elt(
-      'section',
-      { className: 'product-image' },
-      elt('img', { src: `images/${image}`, alt: name })
-    ),
-    elt('section', { className: 'product-price' }, `$${price}`),
-    elt(
-      'footer',
-      { className: 'product-action' },
+fetch('data/product.json')
+  .then(res => res.json())
+  .then(data => {
+    productsData = data;
+    generateProducts(data);
+  });
+
+function generateProducts(data) {
+  // Create a product card based on given data and add it into the website.
+  for (const { name, image, price } of data) {
+    let card = elt(
+      'article',
+      { className: 'product' },
+      elt('header', { className: 'product-name' }, elt('h2', null, name)),
       elt(
         'section',
-        { className: 'product-add-cart' },
-        elt('button', { onclick: addToCart }, 'Add to cart')
+        { className: 'product-image' },
+        elt('div', { className: 'image' }, elt('img', { src: `images/${image}`, alt: name })),
+        elt('div', { className: 'price' }, `$${price}`)
       ),
-      elt('section', { className: 'product-details' }, elt('button', null, 'Details'))
-    )
-  );
+      elt(
+        'footer',
+        { className: 'product-action' },
+        elt(
+          'section',
+          { className: 'product-add-cart' },
+          elt('button', isProductInCart(name), 'Add to cart')
+        ),
+        elt('section', { className: 'product-details' }, elt('button', null, 'Details'))
+      )
+    );
 
-  container.appendChild(card);
+    container.appendChild(card);
 
-  products = document.querySelectorAll('.product');
+    products = products.concat(card);
+  }
 }
 
 function addToCart(event) {
   let cartBtn = event.target;
   let card = cartBtn.closest('.product');
   let productIndex = Array.from(products).indexOf(card);
-
+  let product = productsData[productIndex];
+  // Disable button UI.
   cartBtn.onclick = null;
+  cartBtn.disabled = true;
+  cartBtn.title = 'Product already exist in cart.';
 
-  cart = cart.concat(data[productIndex]);
-  console.log('TCL: addToCart -> cart', cart);
+  // Save it to storage.
+  let cart = loadStorage('cart') || [];
+
+  if (!cart.some(p => p.name === product.name)) {
+    saveStorage('cart', cart.concat(productsData[productIndex]));
+  } else {
+    alert('Product already exists in cart.');
+  }
+}
+
+// Used for determining whether to disable cart button when generating new product card element.
+function isProductInCart(name) {
+  let cartItems = loadStorage('cart') || [];
+  return cartItems.some(p => p.name === name)
+    ? { disabled: true, title: 'Product already exist in cart.' }
+    : { onclick: addToCart };
 }
 
 /* ======================================================================================================== */
-
-// document.body.addEventListener('click', () => console.log('Body clicked'));
