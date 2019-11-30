@@ -64,6 +64,7 @@
             <div class="form-group">
               <div class="form-label">
                 <label for="name">Name: </label>
+                <span class="label-required"><em>(Required)</em></span>
               </div>
 
               <div class="form-input">
@@ -73,6 +74,7 @@
                   id="name"
                   autofocus
                   placeholder="Please input your name..."
+                  required
                 />
               </div>
             </div>
@@ -80,14 +82,16 @@
             <div class="form-group">
               <div class="form-label">
                 <label for="email">Email: </label>
+                <span class="label-required"><em>(Required)</em></span>
               </div>
 
               <div class="form-input">
                 <input
-                  type="text"
+                  type="email"
                   name="email"
                   id="email"
                   placeholder="Please input your email..."
+                  required
                 />
               </div>
             </div>
@@ -95,6 +99,7 @@
             <div class="form-group">
               <div class="form-label">
                 <label for="message">Message: </label>
+                <span class="label-required"><em>(Required)</em></span>
               </div>
 
               <div class="form-input">
@@ -104,6 +109,7 @@
                   cols="30"
                   rows="10"
                   placeholder="Your message..."
+                  required
                 ></textarea>
               </div>
             </div>
@@ -119,5 +125,6 @@
     <footer class="footer-picture"></footer>
 
     <script src="js/main.js"></script>
+    <script src="js/contact.js"></script>
   </body>
 </html>

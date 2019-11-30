@@ -27,7 +27,7 @@ function removeStorage(key) {
   return 'Data removed.';
 }
 
-// Fetching and parsing as data.
+// Fetching and parsing as JSON object.
 function retrieveJSON(path) {
   return new Promise((resolve, reject) => {
     fetch(path)
