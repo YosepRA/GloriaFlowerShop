@@ -8,3 +8,9 @@ email.addEventListener('input', () => {
     email.setCustomValidity('');
   }
 });
+
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  notImplementedAlert('Contact submit');
+  event.target.reset();
+});

@@ -1,0 +1,117 @@
+body#cart {
+  main {
+    .container {
+      display: flex;
+      justify-content: space-between;
+
+      .cart-details {
+        width: 70%;
+
+        .row-title,
+        .cart-product {
+          display: grid;
+          grid-template-columns: repeat(7, 1fr);
+          text-align: center;
+          align-items: center;
+          background: #eee;
+          margin: 1rem 0px;
+        }
+
+        .row-title {
+          div {
+            border-left: 0.5px solid black;
+            padding: 1rem 0px;
+
+            &:last-child {
+              border-right: 0.5px solid black;
+            }
+          }
+        }
+
+        .cart-product {
+          padding: 0.5rem 0px;
+          @include easeOutTransition();
+          transition-duration: 500ms;
+
+          &.delete {
+            opacity: 0;
+          }
+
+          .product-image img {
+            width: 60%;
+          }
+
+          .product-qty input {
+            width: 50%;
+            text-align: center;
+          }
+
+          .product-delete button {
+            color: white;
+            background: red;
+            padding: 0.3rem 0.6rem;
+            border: none;
+            cursor: pointer;
+            border-radius: $button-radius;
+
+            &:hover {
+              background: darken(red, 20);
+            }
+          }
+        }
+
+        .cart-action {
+          text-align: right;
+
+          button {
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: $button-radius;
+          }
+
+          button.action-checkout {
+            padding: 1rem 1.5rem;
+            font-size: 1.5rem;
+            margin-right: 10px;
+            @include ecommerce();
+          }
+
+          button.action-deleteall {
+            padding: 0.7rem 1rem;
+            background: red;
+
+            &:hover {
+              background: darken(red, 20);
+            }
+          }
+        }
+      }
+
+      .grand-total {
+        width: 28%;
+        background: #eee;
+        padding: 2rem;
+
+        header {
+          margin-bottom: 0.5rem;
+        }
+
+        .product-list {
+          margin: 1rem 0px;
+
+          .list-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+          }
+        }
+
+        .total-price {
+          font-size: 2rem;
+          text-align: right;
+        }
+      }
+    }
+  }
+}

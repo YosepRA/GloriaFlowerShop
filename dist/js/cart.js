@@ -1,3 +1,4 @@
+// Loading cart items from local storage.
 let cart = loadStorage('cart') || [];
 let cartItems = document.querySelector('.cart-items');
 
@@ -84,7 +85,11 @@ function generateCartAction() {
   let cartAction = elt(
     'footer',
     { className: 'cart-action' },
-    elt('button', { className: 'action-checkout' }, 'Checkout'),
+    elt(
+      'button',
+      { className: 'action-checkout', onclick: () => notImplementedAlert('Checkout') },
+      'Checkout'
+    ),
     elt('button', { className: 'action-deleteall', onclick: deleteAll }, 'Delete all')
   );
   cartItems.appendChild(cartAction);
@@ -103,7 +108,7 @@ function productCheck(event) {
   let headerCheckbox = document.querySelector('.row-title .product-checkbox input');
   let allCheckbox = document.querySelectorAll('.cart-product .product-checkbox input');
 
-  if (Array.from(allCheckbox).every(checkbox => checkbox.checked == true)) {
+  if (Array.from(allCheckbox).every(checkbox => checkbox.checked === true)) {
     headerCheckbox.checked = true;
   } else {
     headerCheckbox.checked = false;
@@ -124,25 +129,38 @@ function quantityChange(event, price) {
 function deleteItem(event) {
   let product = event.target.closest('.cart-product');
   let productName = product.querySelector('.product-name').textContent;
-  // Remove from view.
-  product.remove();
-  // Remove from storage.
-  cart = cart.filter(p => p.name !== productName);
-  saveStorage('cart', cart);
 
-  syncGrandTotal();
+  // Add class to fade it out.
+  product.classList.add('delete');
+  // Then delay the deletion based on animation time.
+  setTimeout(() => {
+    // Remove from view.
+    product.remove();
+    // Remove from storage.
+    cart = cart.filter(p => p.name !== productName);
+    saveStorage('cart', cart);
+
+    syncGrandTotal();
+  }, 400);
 }
 
 function deleteAll(event) {
   let products = document.querySelectorAll('.cart-product');
-  // Remove from view.
-  for (const product of products) {
-    product.remove();
-  }
-  // Remove all from storage.
-  removeStorage('cart');
 
-  syncGrandTotal();
+  for (const product of products) {
+    product.classList.add('delete');
+  }
+
+  setTimeout(() => {
+    // Remove from view.
+    for (const product of products) {
+      product.remove();
+    }
+    // Remove all from storage.
+    removeStorage('cart');
+
+    syncGrandTotal();
+  }, 400);
 }
 
 function syncGrandTotal() {
@@ -218,5 +236,3 @@ function calculateGrandTotal() {
   let total = priceList.reduce((a, c) => a + c, 0);
   totalPrice.textContent = `$${total}`;
 }
-
-/* ======================================================================================================== */

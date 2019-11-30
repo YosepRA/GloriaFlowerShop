@@ -1,0 +1,47 @@
+$primary-color: #a8e80c;
+$menu-color-primary: white;
+$menu-color-ecommerce: #e89f0c;
+$button-radius: 5px;
+
+@font-face {
+  font-family: Pristina;
+  src: local('Pristina Regular'), url(../fonts/pristina.ttf) format('truetype');
+}
+
+@mixin ecommerce {
+  background-color: $menu-color-ecommerce;
+  color: white;
+
+  &:hover {
+    background-color: darken($menu-color-ecommerce, 10);
+  }
+}
+
+@mixin primaryBtn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: $menu-color-primary;
+  border: 1px solid rgba(#000, 0.3);
+  border-radius: 5px;
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    background-color: darken($menu-color-primary, 10);
+  }
+}
+
+@mixin easeOutTransition {
+  transition: all 200ms ease-out;
+}
+
+@mixin slideUp {
+  position: relative;
+  top: 50px;
+  opacity: 0;
+
+  &.show {
+    top: 0px;
+    opacity: 1;
+  }
+}
