@@ -67,8 +67,6 @@ function dashedText(text) {
 function createBreadcrumb(title) {
   let crumbContainer = document.querySelector('.breadcrumb').closest('.container');
   let dashedTitle = dashedText(title);
-  // let trimmed = breadcrumb.replace(/[ \n]/g, '');
-  // let parts = trimmed.match(/(\w+-*)+/g);
   let dom = elt(
     'div',
     { className: 'breadcrumb' },

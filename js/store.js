@@ -30,7 +30,11 @@ function generateProducts(data) {
           { className: 'product-add-cart' },
           elt('button', isProductInCart(name), 'Add to cart')
         ),
-        elt('section', { className: 'product-details' }, elt('button', null, 'Details'))
+        elt(
+          'section',
+          { className: 'product-details', onclick: () => notImplementedAlert('Product details') },
+          elt('button', null, 'Details')
+        )
       )
     );
 
@@ -67,5 +71,3 @@ function isProductInCart(name) {
     ? { disabled: true, title: 'Product already exist in cart.' }
     : { onclick: addToCart };
 }
-
-/* ======================================================================================================== */

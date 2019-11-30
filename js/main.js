@@ -1,3 +1,28 @@
+let navbar = document.querySelector('nav.navbar');
+let scrollPos = 0;
+let bio = document.querySelector('.bio');
+let action = document.querySelector('.action');
+
+window.addEventListener('scroll', () => {
+  // Toggle navbar's visibility.
+  if (scrollY > scrollPos) navbar.classList.add('hide');
+  else navbar.classList.remove('hide');
+  scrollPos = scrollY;
+
+  // Bio and Action transition.
+  if (
+    document.body.id === 'home' &&
+    (!bio.className.includes('show') || !action.className.includes('show'))
+  ) {
+    // If it's home page and the elements still hidden, then check for scroll.
+    if (pageYOffset + innerHeight >= 717 && !bio.className.includes('show')) {
+      bio.classList.add('show');
+    } else if (pageYOffset + innerHeight >= 1110 && !action.className.includes('show')) {
+      action.classList.add('show');
+    }
+  }
+});
+
 function elt(type, props, ...children) {
   let dom = document.createElement(type);
   if (props) Object.assign(dom, props);
@@ -35,4 +60,8 @@ function retrieveJSON(path) {
       .then(data => resolve(data))
       .catch(err => reject(err));
   });
+}
+
+function notImplementedAlert(name) {
+  alert(`I'm sorry. '${name}' functionality hasn't been implemented.`);
 }
